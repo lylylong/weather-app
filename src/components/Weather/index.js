@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Container, Button, Form, CardColumns, Card } from "react-bootstrap";
 
 function Weather() {
   const [searchedData, setSearchedData] = useState("");
@@ -32,7 +33,8 @@ function Weather() {
           city: data.name,
           the_temp: data.main.temp,
           humidity: data.main.humidity,
-          pressure: data.main.pressure,
+          wind_speed: data.wind.speed,
+          icon: data.weather[0].icon,
         };
 
         setSearchedData(weatherData);
@@ -42,52 +44,86 @@ function Weather() {
   };
 
   return (
-    <div>
-      <h2>
+    <Container className="flex">
+      <p className="current-day mt-4">{date}</p>
+      <h2 className="mt-2">
         {searchedData
           ? `Viewing ${searchedData.city} Weather:`
           : "Search for a city to begin"}
       </h2>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          className="search-city"
-          name="searchInput"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          type="text"
-          placeholder="City Name"
-        />
-
-        <button type="submit" className="btn">
+      <Form
+        onSubmit={handleFormSubmit}
+        inline
+        className="justify-content-center text-center mt-4"
+      >
+        <Form.Group>
+          <Form.Control
+            className="search-city"
+            name="searchInput"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            type="text"
+            placeholder="City Name"
+          />
+        </Form.Group>
+        <Button type="submit" className="btn ml-3" variant="dark">
           Search
-        </button>
-      </form>
+        </Button>
+      </Form>
 
       <div className="current-weather-box">
-        <div className="card-header">
-          <p className="current-day">{date}</p>
-        </div>
+        <div className="mt-4"></div>
         {searchedData ? (
           <div>
-            <h3>{searchedData.city}</h3>
-            <div>
-              <h5>Temperature:</h5>
-              <p>&nbsp;{searchedData.the_temp}</p>
-            </div>
-
-            <div>
-              <h5>Humidity:</h5>
-              <p>&nbsp;{searchedData.humidity}</p>
-            </div>
-
-            <div>
-              <h5>Pressure:</h5>
-              <p>&nbsp;{searchedData.pressure}</p>
-            </div>
+            <h4>
+              {searchedData.city}{" "}
+              <img
+                alt=""
+                src={`http://openweathermap.org/img/w/${searchedData.icon}.png`}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+            </h4>
+            <CardColumns>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Temperature:</Card.Title>
+                  <Card.Text>{searchedData.the_temp} °C</Card.Text>
+                  <Card.Text>
+                    <small className="text-muted">
+                      {date} {searchedData.city}
+                    </small>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Humidity:</Card.Title>
+                  <Card.Text>{searchedData.humidity} %</Card.Text>
+                  <Card.Text>
+                    <small className="text-muted">
+                      {date} {searchedData.city}
+                    </small>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Wind Speed:</Card.Title>
+                  <Card.Text>{searchedData.wind_speed} m/s</Card.Text>
+                  <Card.Text>
+                    <small className="text-muted">
+                      {date} {searchedData.city}
+                    </small>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </CardColumns>
           </div>
         ) : null}
       </div>
-    </div>
+    </Container>
   );
 }
 
