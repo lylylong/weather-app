@@ -35,3 +35,16 @@
     transform: rotate(360deg);
   }
 }
+@media (min-width: 576px) {
+  .search-btn {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .search-btn {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}

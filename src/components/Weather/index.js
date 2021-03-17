@@ -54,19 +54,18 @@ function Weather() {
       <Form
         onSubmit={handleFormSubmit}
         inline
-        className="justify-content-center text-center mt-4"
+        className="justify-content-center mt-4"
       >
-        <Form.Group>
-          <Form.Control
-            className="search-city"
-            name="searchInput"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            type="text"
-            placeholder="City Name"
-          />
-        </Form.Group>
-        <Button type="submit" className="btn ml-3" variant="dark">
+        <Form.Control
+          className="search-city"
+          name="searchInput"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          type="text"
+          placeholder="City Name"
+        />
+
+        <Button type="submit" className="search-btn" variant="dark">
           Search
         </Button>
       </Form>
